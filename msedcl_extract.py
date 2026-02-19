@@ -1,18 +1,6 @@
 """
 MSEDCL Tariff PDF Extractor
 ============================
-Project structure assumed:
-
-    elec_analysis/
-    ├── data/
-    │   ├── pdfs/               ← put all your MERC PDF files here
-    │   └── csv/                ← CSVs will be saved here (auto-created)
-    ├── msedcl_extract.py       ← THIS script (run from elec_analysis/)
-    └── msedcl_analyse.py       ← analysis script (next step)
-
-RUN FROM inside elec_analysis/ folder:
-    python msedcl_extract.py
-
 DEPENDENCIES:
     pip install pdfplumber pandas
     +
@@ -25,18 +13,11 @@ import os
 import sys
 from pathlib import Path
 
-# ══════════════════════════════════════════════════════════════════
-#  PROJECT PATHS  (relative to elec_analysis/ folder)
-# ══════════════════════════════════════════════════════════════════
+
 BASE_DIR    = Path(__file__).parent          # elec_analysis/
 PDF_DIR     = BASE_DIR / "data"              # elec_analysis/data/
 OUTPUT_DIR  = BASE_DIR / "data" / "csv"     # elec_analysis/data/csv/
 
-# ══════════════════════════════════════════════════════════════════
-#  ▶  EDIT THIS — map each PDF filename to its FY label
-#     Keys   = exact filename inside elec_analysis/data/
-#     Values = FY label used in the output CSVs
-# ══════════════════════════════════════════════════════════════════
 PDF_FILES = {
     "FY 2024-25.pdf"  : "2024-25",
     "FY 2023-24.pdf"  : "2023-24",
@@ -214,16 +195,16 @@ def extract_table_rows(table, fy, section, page_num):
 
 
 # ══════════════════════════════════════════════════════════════════
-#  PER-PDF EXTRACTION
+# PDF EXTRACTION
 # ══════════════════════════════════════════════════════════════════
 
 def extract_pdf(pdf_path: Path, fy: str) -> pd.DataFrame:
     print(f"\n{'─'*60}")
-    print(f"  📄 {pdf_path.name}  →  FY {fy}")
+    print(f" {pdf_path.name}  →  FY {fy}")
     print(f"{'─'*60}")
 
     if not pdf_path.exists():
-        print(f"  ⚠️  File not found — skipping.")
+        print(f"  File not found — skipping.")
         return pd.DataFrame()
 
     all_rows = []
@@ -238,7 +219,7 @@ def extract_pdf(pdf_path: Path, fy: str) -> pd.DataFrame:
                 try:
                     tables = pdf.pages[page_idx].extract_tables()
                 except Exception as e:
-                    print(f"    ⚠️  Page {page_idx+1} error: {e}")
+                    print(f" Page {page_idx+1} error: {e}")
                     continue
 
                 for table in tables:
@@ -247,26 +228,21 @@ def extract_pdf(pdf_path: Path, fy: str) -> pd.DataFrame:
                     rows = extract_table_rows(table, fy, section, page_idx)
                     if rows:
                         all_rows.extend(rows)
-                        print(f"    ✔  Page {page_idx+1} [{section}] → {len(rows)} rows")
+                        print(f"Page {page_idx+1} [{section}] → {len(rows)} rows")
 
     except Exception as e:
-        print(f"  ❌ Could not open PDF: {e}")
+        print(f"  Could not open PDF: {e}")
         return pd.DataFrame()
 
     if not all_rows:
-        print("  ⚠️  No tariff data found.")
+        print(" No tariff data found.")
         return pd.DataFrame()
 
     df = pd.DataFrame(all_rows)
     df.drop_duplicates(subset=['FY', 'Category', 'Fixed_Charge', 'Energy_Charge'], inplace=True)
     df.reset_index(drop=True, inplace=True)
-    print(f"  ✅ {len(df)} rows extracted")
+    print(f"  {len(df)} rows extracted")
     return df
-
-
-# ══════════════════════════════════════════════════════════════════
-#  MAIN RUNNER
-# ══════════════════════════════════════════════════════════════════
 
 def run():
     OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
@@ -281,7 +257,7 @@ def run():
     found = sorted(PDF_DIR.glob("FY *.pdf")) if PDF_DIR.exists() else []
     print(f"\n  PDFs found in data/pdfs/  ({len(found)} files):")
     for f in found:
-        print(f"    📄 {f.name}")
+        print(f"     {f.name}")
 
     all_dfs = []
     summary = []
@@ -294,18 +270,18 @@ def run():
             safe_fy  = fy.replace('-', '_')
             csv_path = OUTPUT_DIR / f"msedcl_tariff_{safe_fy}.csv"
             df.to_csv(csv_path, index=False)
-            print(f"  💾 Saved → data/csv/msedcl_tariff_{safe_fy}.csv")
+            print(f"  Saved → data/csv/msedcl_tariff_{safe_fy}.csv")
             all_dfs.append(df)
-            summary.append({'FY': fy, 'File': filename, 'Rows': len(df), 'Status': '✅ Done'})
+            summary.append({'FY': fy, 'File': filename, 'Rows': len(df), 'Status': ' Done'})
         else:
-            summary.append({'FY': fy, 'File': filename, 'Rows': 0, 'Status': '⚠️  No data / Missing'})
+            summary.append({'FY': fy, 'File': filename, 'Rows': 0, 'Status': 'No data / Missing'})
 
     # Master combined CSV (feeds directly into analysis script)
     if all_dfs:
         master = pd.concat(all_dfs, ignore_index=True)
         master_path = OUTPUT_DIR / "msedcl_ALL_YEARS_master.csv"
         master.to_csv(master_path, index=False)
-        print(f"\n  📦 Master CSV saved → data/csv/msedcl_ALL_YEARS_master.csv")
+        print(f"\n  Master CSV saved → data/csv/msedcl_ALL_YEARS_master.csv")
         print(f"     Total rows across all years: {len(master)}")
 
     # Summary
@@ -322,9 +298,9 @@ def run():
     print(f"      └── csv/      ← generated output")
     if OUTPUT_DIR.exists():
         for f in sorted(OUTPUT_DIR.iterdir()):
-            print(f"          📄 {f.name}  ({f.stat().st_size/1024:.1f} KB)")
+            print(f"          {f.name}  ({f.stat().st_size/1024:.1f} KB)")
 
-    print(f"\n  ✅ Extraction complete! Next step: run msedcl_analyse.py")
+    print(f"\n  Extraction complete! Next step: run msedcl_analyse.py")
 
 
 if __name__ == '__main__':

@@ -1,10 +1,6 @@
 """
 MSEDCL Tariff Analysis & ML Scenario Prediction
 ===============================================
-Features:
-1. ML Scenario Forecasting (Optimistic, Expected, Pessimistic).
-2. Saves PNG images directly to the root folder for GitHub visibility.
-3. Saves output CSVs to data/reports/.
 """
 
 import pandas as pd
@@ -396,7 +392,7 @@ def main():
             
     pd.DataFrame(rows).to_csv(CSV_DIR / "msedcl_scenario_forecast_2026_2030.csv", index=False)
 
-    print(f"\n{'═'*60}\n  ✅ SCENARIO ANALYSIS COMPLETE\n{'═'*60}\n")
+    print(f"\n{'═'*60}\n  SCENARIO ANALYSIS COMPLETE\n{'═'*60}\n")
 
 if __name__ == '__main__':
     main()
