@@ -2,6 +2,8 @@
 
 An automated data pipeline and machine learning project designed to extract, clean, analyze, and forecast electricity tariffs for the Maharashtra State Electricity Distribution Co. Ltd. (MSEDCL).
 
+![ML Scenario Forecast](02_ml_scenario_forecast.png)
+
 ## Overview
 
 Electricity rates are complex and historically buried in difficult-to-read PDF documents. This project solves that problem by scraping the raw PDF data, filtering anomalies, calculating Compound Annual Growth Rates (CAGR), and using Machine Learning predicition algorithm to predict rates up to 2030. 
