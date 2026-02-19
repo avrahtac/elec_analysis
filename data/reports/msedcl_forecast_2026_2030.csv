@@ -1,0 +1,31 @@
+Category,Forecast_Year,Energy_Charge
+HT Industry,2025,8.322
+HT Industry,2026,8.548
+HT Industry,2027,8.775
+HT Industry,2028,9.001
+HT Industry,2029,9.227
+HT Industry,2030,9.454
+LT Agriculture (Metered),2025,2.308
+LT Agriculture (Metered),2026,2.228
+LT Agriculture (Metered),2027,2.149
+LT Agriculture (Metered),2028,2.07
+LT Agriculture (Metered),2029,1.99
+LT Agriculture (Metered),2030,1.911
+LT Commercial (0-20kW),2025,1.922
+LT Commercial (0-20kW),2026,1.302
+LT Commercial (0-20kW),2027,0.682
+LT Commercial (0-20kW),2028,0.5
+LT Commercial (0-20kW),2029,0.5
+LT Commercial (0-20kW),2030,0.5
+LT Industry (0-20kW),2025,2.44
+LT Industry (0-20kW),2026,0.5
+LT Industry (0-20kW),2027,0.5
+LT Industry (0-20kW),2028,0.5
+LT Industry (0-20kW),2029,0.5
+LT Industry (0-20kW),2030,0.5
+LT Residential (0-100u),2025,3.504
+LT Residential (0-100u),2026,3.548
+LT Residential (0-100u),2027,3.592
+LT Residential (0-100u),2028,3.636
+LT Residential (0-100u),2029,3.681
+LT Residential (0-100u),2030,3.725

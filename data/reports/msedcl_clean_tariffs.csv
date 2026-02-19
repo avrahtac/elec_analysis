@@ -1,0 +1,23 @@
+Category,FY,Year,Energy_Charge,Fixed_Charge
+HT Industry,2019-20,2019,6.85,463.0
+HT Industry,2022-23,2022,8.12,
+HT Industry,2023-24,2023,7.48,
+HT Industry,2024-25,2024,8.12,
+LT Agriculture (Metered),2018-19,2018,2.09,
+LT Agriculture (Metered),2019-20,2019,3.79,
+LT Agriculture (Metered),2022-23,2022,2.35,
+LT Agriculture (Metered),2024-25,2024,2.35,
+LT Commercial (0-20kW),2018-19,2018,5.28,
+LT Commercial (0-20kW),2019-20,2019,7.18,1.38
+LT Commercial (0-20kW),2022-23,2022,1.17,3.54
+LT Commercial (0-20kW),2023-24,2023,6.59,
+LT Commercial (0-20kW),2024-25,2024,1.17,3.54
+LT Industry (0-20kW),2018-19,2018,17.4,13207.0
+LT Industry (0-20kW),2022-23,2022,5.94,422.0
+LT Industry (0-20kW),2023-24,2023,6.76,
+LT Industry (0-20kW),2024-25,2024,5.94,422.0
+LT Residential (0-100u),2018-19,2018,3.0,
+LT Residential (0-100u),2019-20,2019,3.46,100.0
+LT Residential (0-100u),2022-23,2022,4.01,
+LT Residential (0-100u),2023-24,2023,2.2,
+LT Residential (0-100u),2024-25,2024,4.01,
